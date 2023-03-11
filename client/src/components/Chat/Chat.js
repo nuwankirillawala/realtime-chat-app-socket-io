@@ -20,6 +20,15 @@ const Chat = () => {
     console.log(socket);
     setName(name);
     setRoom(room);
+
+    socket.emit('join', {name, room}, () => {
+      // error handling through callback fn
+    });
+
+    return () => {
+      socket.emit('disconnect');
+      socket.off();
+    }
   }, [ENDPOINT, location.search])
 
   return (
